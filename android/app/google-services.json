@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "308896033495",
+    "project_id": "appchatfakezalo",
+    "storage_bucket": "appchatfakezalo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308896033495:android:d07a85727db59ce155de92",
+        "android_client_info": {
+          "package_name": "com.example.appchatfakezalo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308896033495-h2a0f2aeqkv9e10ce172kf0bskbnnlqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnacOwioUQoBlM9B-LdRPM5BnYc9TjSqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308896033495-h2a0f2aeqkv9e10ce172kf0bskbnnlqj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
