@@ -32,12 +32,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: size.height / 20,
                   ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    width: size.width / 0.5,
-                    child: IconButton(
-                        icon: Icon(Icons.arrow_back_ios), onPressed: () {}),
+                  SizedBox(
+                    height: 130,
                   ),
+                  // Container(
+                  //   alignment: Alignment.centerLeft,
+                  //   width: size.width / 0.5,
+                  //   child: IconButton(
+                  //       icon: Icon(Icons.arrow_back_ios), onPressed: () {}),
+                  // ),
                   SizedBox(
                     height: size.height / 50,
                   ),
@@ -68,18 +71,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     width: size.width,
                     alignment: Alignment.center,
-                    child: field(size, "email", Icons.account_box, _email),
+                    child: field(size, "Email", Icons.account_box, _email),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 18.0),
                     child: Container(
                       width: size.width,
                       alignment: Alignment.center,
-                      child: field(size, "password", Icons.lock, _password),
+                      child: field(size, "Password", Icons.lock, _password),
                     ),
                   ),
                   SizedBox(
-                    height: size.height / 10,
+                    height: size.height / 28,
                   ),
                   customButton(size),
                   SizedBox(
@@ -132,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Container(
           height: size.height / 14,
-          width: size.width / 1.2,
+          width: size.width / 1.1,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             color: Colors.blue,
