@@ -126,6 +126,10 @@ class ChatRoom extends StatelessWidget {
             }
           },
         ),
+        actions: [
+          IconButton(icon: Icon(Icons.local_phone), onPressed: () {}),
+          IconButton(icon: Icon(Icons.videocam), onPressed: () {}),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
