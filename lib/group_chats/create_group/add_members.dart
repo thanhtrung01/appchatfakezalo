@@ -108,12 +108,37 @@ class _AddMembersInGroupState extends State<AddMembersInGroup> {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    onTap: () => onRemoveMembers(index),
-                    leading: Icon(Icons.account_circle),
-                    title: Text(membersList[index]['name']),
-                    subtitle: Text(membersList[index]['email']),
-                    trailing: Icon(Icons.close),
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: size.height / 40,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: Container(
+                          width: size.width,
+                          alignment: Alignment.center,
+                          child: Container(
+                            width: size.width / 1.1,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.grey.shade300,
+                                border: Border.all(
+                                  width: 2,
+                                  color: Colors.grey.shade300,
+                                )
+                            ),
+                            child: ListTile(
+                              onTap: () => onRemoveMembers(index),
+                              leading: Icon(Icons.account_circle, size: 42),
+                              title: Text(membersList[index]['name']),
+                              subtitle: Text(membersList[index]['email']),
+                              trailing: Icon(Icons.close),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
@@ -127,15 +152,56 @@ class _AddMembersInGroupState extends State<AddMembersInGroup> {
               alignment: Alignment.center,
               child: Container(
                 height: size.height / 14,
-                width: size.width / 1.15,
-                child: TextField(
-                  controller: _search,
-                  decoration: InputDecoration(
-                    hintText: "Search",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                width: size.width / 1.1,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: size.width / 1.36,
+                      child: TextField(
+                        controller: _search,
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          contentPadding: EdgeInsets.fromLTRB(22, 0, 0, 0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 0.0),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 2, 0, 10),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            height: size.height / 15,
+                            width: size.width / 7,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.blue,
+                                border: Border.all(
+                                  width: 2,
+                                  color: Colors.blue,
+                                )
+                            ),
+                            // margin: EdgeInsets.symmetric(vertical: 4.0),
+                            child: ElevatedButton(
+                              onPressed: onSearch,
+                              child: Icon(
+                                Icons.search,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // ElevatedButton(
+                    //   onPressed: onSearch,
+                    //   child: Text("Search"),
+                    // )
+                  ],
                 ),
               ),
             ),
@@ -149,10 +215,13 @@ class _AddMembersInGroupState extends State<AddMembersInGroup> {
                     alignment: Alignment.center,
                     child: CircularProgressIndicator(),
                   )
-                : ElevatedButton(
-                    onPressed: onSearch,
-                    child: Text("Search"),
-                  ),
+                :
+                SizedBox()
+            // ElevatedButton(
+            //         onPressed: onSearch,
+            //         child: Text("Search"),
+            //       )
+            ,
             userMap != null
                 ? ListTile(
                     onTap: onResultTap,

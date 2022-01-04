@@ -99,57 +99,114 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   width: size.width,
                   alignment: Alignment.center,
                   child: Container(
-                    height: size.height / 14,
-                    width: size.width / 1.15,
-                    child: TextField(
-                      controller: _search,
-                      decoration: InputDecoration(
-                        hintText: "Search",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    height: size.height / 15,
+                    width: size.width / 1.1,
+                    child: Stack(
+
+                      children: [
+                        Container(
+                          width: size.width / 1.36,
+                          child: TextField(
+                            controller: _search,
+                            style: TextStyle(fontSize: 18),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.fromLTRB(22, 0, 0, 0),
+                              hintText: "Search",
+                              border: OutlineInputBorder(
+
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 0.0),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 2, 0, 6),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Container(
+                                height: size.height / 15,
+                                width: size.width / 7,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.blue,
+                                    border: Border.all(
+                                      width: 2,
+                                      color: Colors.blue,
+                                    )
+                                ),
+                                // margin: EdgeInsets.symmetric(vertical: 4.0),
+                                child: ElevatedButton(
+                                  onPressed: onSearch,
+                                  child: Icon(
+                                    Icons.search,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
                 SizedBox(
                   height: size.height / 50,
                 ),
-                ElevatedButton(
-                  onPressed: onSearch,
-                  child: Text("Search"),
-                ),
+                // ElevatedButton(
+                //   onPressed: onSearch,
+                //   child: Text("Search"),
+                // ),
                 SizedBox(
                   height: size.height / 30,
                 ),
                 userMap != null
-                    ? ListTile(
-                        onTap: () {
-                          String roomId = chatRoomId(
-                              _auth.currentUser!.displayName!,
-                              userMap!['name']);
+                    ? Container(
+                      width: size.width / 1.1,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.grey.shade300,
+                        border: Border.all(
+                          width: 2,
+                          color: Colors.grey.shade300,
+                        )
+                      ),
 
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => ChatRoom(
-                                chatRoomId: roomId,
-                                userMap: userMap!,
+                      child: ListTile(
+                          onTap: () {
+                            String roomId = chatRoomId(
+                                _auth.currentUser!.displayName!,
+                                userMap!['name']);
+
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => ChatRoom(
+                                  chatRoomId: roomId,
+                                  userMap: userMap!,
+                                ),
                               ),
+                            );
+                          },
+                          // tileColor: Colors.grey.shade300,
+
+                          leading: Icon(Icons.account_circle, color: Colors.black, size: 42.0),
+                          title: Text(
+                            userMap!['name'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
                             ),
-                          );
-                        },
-                        leading: Icon(Icons.account_box, color: Colors.black),
-                        title: Text(
-                          userMap!['name'],
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
+                          ),
+                          subtitle: Text(userMap!['email']),
+                          trailing: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 6, 16, 0),
+                            child: Icon(Icons.chat, color: Colors.black),
                           ),
                         ),
-                        subtitle: Text(userMap!['email']),
-                        trailing: Icon(Icons.chat, color: Colors.black),
-                      )
+                    )
                     : Container(),
               ],
             ),

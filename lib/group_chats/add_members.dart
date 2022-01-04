@@ -68,7 +68,7 @@ class _AddMembersINGroupState extends State<AddMembersINGroup> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Members"),
+        title: Text("Add Members123"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -84,14 +84,23 @@ class _AddMembersINGroupState extends State<AddMembersINGroup> {
               child: Container(
                 height: size.height / 14,
                 width: size.width / 1.15,
-                child: TextField(
-                  controller: _search,
-                  decoration: InputDecoration(
-                    hintText: "Search",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                child: Stack(
+                  children: [
+                    TextField(
+                      controller: _search,
+                      decoration: InputDecoration(
+                        hintText: "Search",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
-                  ),
+
+                    ElevatedButton(
+                      onPressed: onSearch,
+                      child: Text("Search"),
+                    )
+                  ],
                 ),
               ),
             ),

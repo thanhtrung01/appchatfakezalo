@@ -106,13 +106,18 @@ class ChatRoom extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.data != null) {
               return Container(
-                child: Column(
+                child: Row(
                   children: [
-                    Text(userMap['name']),
-                    Text(
-                      snapshot.data!['status'],
-                      style: TextStyle(fontSize: 14),
+                    Column(
+                      children: [
+                        Text(userMap['name']),
+                        Text(
+                          snapshot.data!['status'],
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
                     ),
+
                   ],
                 ),
               );
@@ -126,7 +131,7 @@ class ChatRoom extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: size.height / 1.25,
+              height: size.height / 1.35,
               width: size.width,
               child: StreamBuilder<QuerySnapshot>(
                 stream: _firestore
@@ -163,7 +168,7 @@ class ChatRoom extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      height: size.height / 17,
+                      height: size.height / 14,
                       width: size.width / 1.3,
                       child: TextField(
                         controller: _message,
