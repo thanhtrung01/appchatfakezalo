@@ -111,6 +111,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             style: TextStyle(fontSize: 18),
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.fromLTRB(22, 0, 0, 0),
+                              icon: Icon(Icons.search),
                               hintText: "Search",
                               border: OutlineInputBorder(
 
