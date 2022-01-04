@@ -126,7 +126,7 @@ class ChatRoom extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: size.height / 1.25,
+              height: size.height / 1.15,
               width: size.width,
               child: StreamBuilder<QuerySnapshot>(
                 stream: _firestore
