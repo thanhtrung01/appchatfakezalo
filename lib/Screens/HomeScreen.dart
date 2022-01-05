@@ -102,7 +102,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     height: size.height / 15,
                     width: size.width / 1.1,
                     child: Stack(
-
                       children: [
                         Container(
                           width: size.width / 1.36,
@@ -111,10 +110,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             style: TextStyle(fontSize: 18),
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.fromLTRB(22, 0, 0, 0),
-                              icon: Icon(Icons.search),
+                              // icon: Icon(Icons.search),
                               hintText: "Search",
                               border: OutlineInputBorder(
-
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
@@ -135,8 +133,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                     border: Border.all(
                                       width: 2,
                                       color: Colors.blue,
-                                    )
-                                ),
+                                    )),
                                 // margin: EdgeInsets.symmetric(vertical: 4.0),
                                 child: ElevatedButton(
                                   onPressed: onSearch,
@@ -164,18 +161,16 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 ),
                 userMap != null
                     ? Container(
-                      width: size.width / 1.1,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.grey.shade300,
-                        border: Border.all(
-                          width: 2,
-                          color: Colors.grey.shade300,
-                        )
-                      ),
-
-                      child: ListTile(
+                        width: size.width / 1.1,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.grey.shade300,
+                            border: Border.all(
+                              width: 2,
+                              color: Colors.grey.shade300,
+                            )),
+                        child: ListTile(
                           onTap: () {
                             String roomId = chatRoomId(
                                 _auth.currentUser!.displayName!,
@@ -192,7 +187,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                           },
                           // tileColor: Colors.grey.shade300,
 
-                          leading: Icon(Icons.account_circle, color: Colors.black, size: 42.0),
+                          leading: Icon(Icons.account_circle,
+                              color: Colors.black, size: 42.0),
                           title: Text(
                             userMap!['name'],
                             style: TextStyle(
@@ -207,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             child: Icon(Icons.chat, color: Colors.black),
                           ),
                         ),
-                    )
+                      )
                     : Container(),
               ],
             ),

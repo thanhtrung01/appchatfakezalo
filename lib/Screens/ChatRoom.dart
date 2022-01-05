@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:appchatfakezalo/Screens/ProfilePage.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatRoom extends StatelessWidget {
@@ -100,37 +101,43 @@ class ChatRoom extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: StreamBuilder<DocumentSnapshot>(
-          stream:
-              _firestore.collection("users").doc(userMap['uid']).snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.data != null) {
-              return Container(
-                child: Row(
-                  children: [
-                    Column(
-                      children: [
-                        Text(userMap['name']),
-                        Text(
-                          snapshot.data!['status'],
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ],
-                    ),
-
-                  ],
+          title: StreamBuilder<DocumentSnapshot>(
+            stream:
+                _firestore.collection("users").doc(userMap['uid']).snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.data != null) {
+                return Container(
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [
+                          Text(userMap['name']),
+                          Text(
+                            snapshot.data!['status'],
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
+          actions: [
+            IconButton(icon: Icon(Icons.local_phone), onPressed: () {}),
+            IconButton(icon: Icon(Icons.videocam), onPressed: () {}),
+            IconButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ProfilePage(),
                 ),
-              );
-            } else {
-              return Container();
-            }
-          },
-        ),
-        actions: [
-          IconButton(icon: Icon(Icons.local_phone), onPressed: () {}),
-          IconButton(icon: Icon(Icons.videocam), onPressed: () {}),
-        ],
-      ),
+              ),
+              icon: Icon(Icons.more_vert),
+            ),
+          ]),
       body: SingleChildScrollView(
         child: Column(
           children: [

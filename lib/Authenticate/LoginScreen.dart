@@ -1,68 +1,38 @@
-import 'package:appchatfakezalo/Authenticate/Methods.dart';
+import 'package:appchatfakezalo/Authenticate/CreateAccount.dart';
+import 'package:appchatfakezalo/Screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:appchatfakezalo/screens/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:firebase_database/firebase_database.dart';
 
-class CreateAccount extends StatefulWidget {
-  const CreateAccount({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  _CreateAccountState createState() => _CreateAccountState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _CreateAccountState extends State<CreateAccount> {
+class _LoginScreenState extends State<LoginScreen> {
+  // final TextEditingController _email = TextEditingController();
+  // final TextEditingController _password = TextEditingController();
+  // bool isLoading = false;
+
+  // form key
+  final _formKey = GlobalKey<FormState>();
+
+  // editing controller
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
+  // firebase
   final _auth = FirebaseAuth.instance;
-  final db = FirebaseDatabase.instance.ref();
-  late DatabaseReference databaseReference;
 
   // string for displaying the error Message
   String? errorMessage;
 
-  // our form key
-  final _formKey = GlobalKey<FormState>();
-
-  // editing Controller
-  final TextEditingController _name = TextEditingController();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-
   //is loading
   bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
-    //name field
-    final _nameField = TextFormField(
-        autofocus: false,
-        controller: _name,
-        keyboardType: TextInputType.name,
-        validator: (value) {
-          RegExp regex = new RegExp(r'^.{3,}$');
-          if (value!.isEmpty) {
-            return ("First Name cannot be Empty");
-          }
-          if (!regex.hasMatch(value)) {
-            return ("Enter Valid name(Min. 3 Character)");
-          }
-          return null;
-        },
-        onSaved: (value) {
-          _name.text = value!;
-        },
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          prefixIcon: Icon(Icons.account_circle),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "First Name",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ));
-
     //email field
     final emailField = TextFormField(
         autofocus: false,
@@ -80,7 +50,7 @@ class _CreateAccountState extends State<CreateAccount> {
           return null;
         },
         onSaved: (value) {
-          _name.text = value!;
+          _email.text = value!;
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
@@ -107,9 +77,9 @@ class _CreateAccountState extends State<CreateAccount> {
           }
         },
         onSaved: (value) {
-          _name.text = value!;
+          _password.text = value!;
         },
-        textInputAction: TextInputAction.next,
+        textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.vpn_key),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -118,8 +88,8 @@ class _CreateAccountState extends State<CreateAccount> {
             borderRadius: BorderRadius.circular(10),
           ),
         ));
-    //signup button
-    final signUpButton = Material(
+
+    final loginButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
       color: Colors.blueAccent,
@@ -127,10 +97,10 @@ class _CreateAccountState extends State<CreateAccount> {
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
-            signUp(_email.text, _password.text);
+            signIn(_email.text, _password.text);
           },
           child: Text(
-            "SignUp",
+            "Login",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
@@ -139,17 +109,6 @@ class _CreateAccountState extends State<CreateAccount> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.red),
-          onPressed: () {
-            // passing this to our root
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -168,15 +127,33 @@ class _CreateAccountState extends State<CreateAccount> {
                           "assets/gamer.png",
                           fit: BoxFit.contain,
                         )),
-                    SizedBox(height: 25),
-                    _nameField,
-                    SizedBox(height: 20),
+                    SizedBox(height: 35),
                     emailField,
-                    SizedBox(height: 20),
+                    SizedBox(height: 25),
                     passwordField,
-                    SizedBox(height: 20),
-                    signUpButton,
+                    SizedBox(height: 35),
+                    loginButton,
                     SizedBox(height: 15),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Don't have an account? "),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CreateAccount()));
+                            },
+                            child: Text(
+                              "SignUp",
+                              style: TextStyle(
+                                  color: Colors.blueAccent,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
+                          )
+                        ])
                   ],
                 ),
               ),
@@ -187,20 +164,25 @@ class _CreateAccountState extends State<CreateAccount> {
     );
   }
 
-  void signUp(String email, String password) async {
+  // login function
+  void signIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
         await _auth
-            .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) => {postDetailsToFirestore()})
-            .whenComplete(() => print("complete!"))
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((uid) => {
+                  Fluttertoast.showToast(msg: "Login Successful"),
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => HomeScreen())),
+                })
             .catchError((e) {
           Fluttertoast.showToast(msg: e!.message);
-        });
+        }).whenComplete(() => print("Login Successful!"));
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":
             errorMessage = "Your email address appears to be malformed.";
+
             break;
           case "wrong-password":
             errorMessage = "Your password is wrong.";
@@ -224,32 +206,5 @@ class _CreateAccountState extends State<CreateAccount> {
         print(error.code);
       }
     }
-  }
-
-  postDetailsToFirestore() async {
-    // calling our firestore
-    // calling our user model
-    // sedning these values
-    DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    User? user = _auth.currentUser;
-
-    UserModel userModel = UserModel();
-
-    // writing all the values
-    userModel.email = user!.email;
-    userModel.uid = user.uid;
-    userModel.name = _name.text;
-
-    await firebaseFirestore
-        .collection("users")
-        .doc(user.uid)
-        .set(userModel.toMap());
-    Fluttertoast.showToast(msg: "Account created successfully");
-
-    Navigator.pushAndRemoveUntil(
-        (context),
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-        (route) => false);
   }
 }

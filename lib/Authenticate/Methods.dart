@@ -1,4 +1,4 @@
-import 'package:appchatfakezalo/Authenticate/LoginScree.dart';
+import 'package:appchatfakezalo/Authenticate/LoginScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -61,5 +61,31 @@ Future logOut(BuildContext context) async {
     });
   } catch (e) {
     print("error");
+  }
+}
+
+class UserModel {
+  String? uid;
+  String? email;
+  String? name;
+
+  UserModel({this.uid, this.email, this.name});
+
+  // receiving data from server
+  factory UserModel.fromMap(map) {
+    return UserModel(
+      uid: map['uid'],
+      email: map['email'],
+      name: map['name'],
+    );
+  }
+
+  // sending data to our server
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': uid,
+      'email': email,
+      'name': name,
+    };
   }
 }

@@ -1,5 +1,5 @@
 import 'package:appchatfakezalo/Screens/HomeScreen.dart';
-import 'package:appchatfakezalo/Authenticate/LoginScree.dart';
+import 'package:appchatfakezalo/Authenticate/LoginScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
