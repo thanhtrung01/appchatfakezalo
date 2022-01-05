@@ -68,7 +68,7 @@ class _AddMembersINGroupState extends State<AddMembersINGroup> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Members123"),
+        title: Text("Add Members"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -79,33 +79,62 @@ class _AddMembersINGroupState extends State<AddMembersINGroup> {
             ),
             Container(
               height: size.height / 14,
-              width: size.width,
+              width: size.width / 1,
               alignment: Alignment.center,
               child: Container(
-                height: size.height / 14,
-                width: size.width / 1.15,
+                height: size.height / 15,
+                width: size.width / 1.1,
                 child: Stack(
                   children: [
-                    TextField(
-                      controller: _search,
-                      decoration: InputDecoration(
-                        hintText: "Search",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                    Container(
+                      width: size.width / 1.36,
+                      child: TextField(
+                        controller: _search,
+                        style: TextStyle(fontSize: 18),
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          contentPadding: EdgeInsets.fromLTRB(22, 0, 0, 0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                       ),
                     ),
 
-                    ElevatedButton(
-                      onPressed: onSearch,
-                      child: Text("Search"),
-                    )
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 0.0),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 2, 0, 6),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            height: size.height / 15,
+                            width: size.width / 7,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.blue,
+                                border: Border.all(
+                                  width: 2,
+                                  color: Colors.blue,
+                                )
+                            ),
+                            // margin: EdgeInsets.symmetric(vertical: 4.0),
+                            child: ElevatedButton(
+                              onPressed: onSearch,
+                              child: Icon(
+                                Icons.search,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
             SizedBox(
-              height: size.height / 50,
+              height: size.height / 90,
             ),
             isLoading
                 ? Container(
@@ -114,18 +143,36 @@ class _AddMembersINGroupState extends State<AddMembersINGroup> {
                     alignment: Alignment.center,
                     child: CircularProgressIndicator(),
                   )
-                : ElevatedButton(
-                    onPressed: onSearch,
-                    child: Text("Search"),
-                  ),
+                : Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 24),
+                  child: Container(),
+                ),
             userMap != null
-                ? ListTile(
-                    onTap: onAddMembers,
-                    leading: Icon(Icons.account_box),
-                    title: Text(userMap!['name']),
-                    subtitle: Text(userMap!['email']),
-                    trailing: Icon(Icons.add),
-                  )
+                ? Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Container(
+                    width: size.width,
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: size.width / 1.1,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.grey.shade300,
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey.shade300,
+                          )
+                      ),
+                      child: ListTile(
+                          onTap: onAddMembers,
+                          leading: Icon(Icons.account_circle, size: 42),
+                          title: Text(userMap!['name']),
+                          subtitle: Text(userMap!['email']),
+                          trailing: Icon(Icons.add),
+                        ),
+                    ),
+                  ),
+                )
                 : SizedBox(),
           ],
         ),

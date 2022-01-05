@@ -1,6 +1,7 @@
 import 'package:appchatfakezalo/Screens/HomeScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -79,12 +80,13 @@ class _CreateGroupState extends State<CreateGroup> {
                   width: size.width,
                   alignment: Alignment.center,
                   child: Container(
-                    height: size.height / 14,
-                    width: size.width / 1.15,
+                    height: size.height / 15,
+                    width: size.width / 1.1,
                     child: TextField(
                       controller: _groupName,
                       decoration: InputDecoration(
                         hintText: "Enter Group Name",
+                        contentPadding: EdgeInsets.fromLTRB(22, 0, 0, 0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -95,9 +97,18 @@ class _CreateGroupState extends State<CreateGroup> {
                 SizedBox(
                   height: size.height / 50,
                 ),
-                ElevatedButton(
-                  onPressed: createGroup,
-                  child: Text("Create Group"),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue,
+                  ),
+                  child: ElevatedButton(
+                    onPressed: createGroup,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(2, 0, 2, 0),
+                          child: Text("Create Group", style: TextStyle(fontSize: 17))
+                    ),
+                  ),
                 ),
               ],
             ),

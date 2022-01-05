@@ -113,6 +113,7 @@ class _AddMembersInGroupState extends State<AddMembersInGroup> {
                       SizedBox(
                         height: size.height / 40,
                       ),
+
                       Padding(
                         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Container(
@@ -223,13 +224,31 @@ class _AddMembersInGroupState extends State<AddMembersInGroup> {
             //       )
             ,
             userMap != null
-                ? ListTile(
-                    onTap: onResultTap,
-                    leading: Icon(Icons.account_box),
-                    title: Text(userMap!['name']),
-                    subtitle: Text(userMap!['email']),
-                    trailing: Icon(Icons.add),
-                  )
+                ? Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Container(
+                    width: size.width,
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: size.width / 1.1,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.grey.shade300,
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey.shade300,
+                          )
+                      ),
+                      child: ListTile(
+                          onTap: onResultTap,
+                          leading: Icon(Icons.account_circle, size: 42),
+                          title: Text(userMap!['name']),
+                          subtitle: Text(userMap!['email']),
+                          trailing: Icon(Icons.add),
+                        ),
+                    ),
+                  ),
+                )
                 : SizedBox(),
           ],
         ),

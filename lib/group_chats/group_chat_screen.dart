@@ -58,17 +58,36 @@ class _GroupChatHomeScreenState extends State<GroupChatHomeScreen> {
           : ListView.builder(
               itemCount: groupList.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => GroupChatRoom(
-                        groupName: groupList[index]['name'],
-                        groupChatId: groupList[index]['id'],
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 16, 10, 0),
+                  child: Container(
+                    width: size.width,
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: size.width / 1.1,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.grey.shade300,
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey.shade300,
+                          )
+                      ),
+                      child: ListTile(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => GroupChatRoom(
+                              groupName: groupList[index]['name'],
+                              groupChatId: groupList[index]['id'],
+                            ),
+                          ),
+                        ),
+                        leading: Icon(Icons.group_rounded, size: 36),
+                        title: Text(groupList[index]['name'], style: TextStyle(fontSize: 18)),
+                        trailing: Icon(Icons.navigate_next, size: 34),
                       ),
                     ),
                   ),
-                  leading: Icon(Icons.group),
-                  title: Text(groupList[index]['name']),
                 );
               },
             ),

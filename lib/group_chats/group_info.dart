@@ -149,11 +149,11 @@ class _GroupInfoState extends State<GroupInfo> {
                       child: Row(
                         children: [
                           Container(
-                            height: size.height / 11,
-                            width: size.height / 11,
+                            height: size.height / 13,
+                            width: size.height / 13,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.grey,
+                              color: Colors.grey.shade400,
                             ),
                             child: Icon(
                               Icons.group,
@@ -181,25 +181,44 @@ class _GroupInfoState extends State<GroupInfo> {
                     ),
 
                     //
+                    Container(
+                      width: size.width / 1.2,
+                      height: 1,
+                      color: Colors.brown.shade400,
+                    ),
 
                     SizedBox(
-                      height: size.height / 20,
+                      height: size.height / 28,
                     ),
 
                     Container(
                       width: size.width / 1.1,
-                      child: Text(
-                        "${membersList.length} Members",
-                        style: TextStyle(
-                          fontSize: size.width / 20,
-                          fontWeight: FontWeight.w500,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: Text(
+                          "${membersList.length} Members",
+                          style: TextStyle(
+                            fontSize: size.width / 20,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),
 
                     SizedBox(
-                      height: size.height / 20,
+                      height: size.height / 36,
                     ),
+
+                    Container(
+                      width: size.width / 1.2,
+                      height: 2,
+                      color: Colors.grey.shade400,
+                    ),
+
+                    SizedBox(
+                      height: size.height / 36,
+                    ),
+
 
                     // Members Name
 
@@ -214,8 +233,12 @@ class _GroupInfoState extends State<GroupInfo> {
                                 ),
                               ),
                             ),
-                            leading: Icon(
-                              Icons.add,
+                            leading: Padding(
+                              padding: const EdgeInsets.fromLTRB(4, 0, 6, 0),
+                              child: Icon(
+                                Icons.add,
+                                size: 36
+                              ),
                             ),
                             title: Text(
                               "Add Members",
@@ -235,7 +258,10 @@ class _GroupInfoState extends State<GroupInfo> {
                         itemBuilder: (context, index) {
                           return ListTile(
                             onTap: () => showDialogBox(index),
-                            leading: Icon(Icons.account_circle),
+                            leading: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
+                              child: Icon(Icons.account_circle, size: 42),
+                            ),
                             title: Text(
                               membersList[index]['name'],
                               style: TextStyle(
@@ -245,24 +271,37 @@ class _GroupInfoState extends State<GroupInfo> {
                             ),
                             subtitle: Text(membersList[index]['email']),
                             trailing: Text(
-                                membersList[index]['isAdmin'] ? "Admin" : ""),
+                                membersList[index]['isAdmin'] ? "Admin" : "", style: TextStyle(fontSize: 17, color: Colors.blue.shade300)),
                           );
                         },
                       ),
                     ),
 
-                    ListTile(
-                      onTap: onLeaveGroup,
-                      leading: Icon(
-                        Icons.logout,
-                        color: Colors.redAccent,
-                      ),
-                      title: Text(
-                        "Leave Group",
-                        style: TextStyle(
-                          fontSize: size.width / 22,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.redAccent,
+                    Container(
+                      width: size.width / 1.2,
+                      height: 1,
+                        color: Colors.brown.shade400,
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                      child: ListTile(
+                        onTap: onLeaveGroup,
+                        leading: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 6, 0),
+                          child: Icon(
+                            Icons.logout,
+                            color: Colors.redAccent,
+                            size: 30
+                          ),
+                        ),
+                        title: Text(
+                          "Leave Group",
+                          style: TextStyle(
+                            fontSize: size.width / 22,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.redAccent,
+                          ),
                         ),
                       ),
                     ),
